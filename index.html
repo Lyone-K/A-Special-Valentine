@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Valentine 💎</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Poppins',sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background: radial-gradient(circle at top, #1a001f, #000);
+}
+
+/* Background glow motion */
+body::before{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:200%;
+    background: radial-gradient(circle, rgba(255,215,128,0.12), transparent 40%);
+    animation: glowMove 18s linear infinite;
+}
+@keyframes glowMove{
+    from{transform:translate(-30%, -30%);}
+    to{transform:translate(30%, 30%);}
+}
+
+/* Floating hearts */
+.heart{
+    position:absolute;
+    font-size:20px;
+    color:#ff4d88;
+    animation: floatUp linear infinite;
+    opacity:0.8;
+}
+@keyframes floatUp{
+    from{transform:translateY(110vh) scale(0.5);}
+    to{transform:translateY(-10vh) scale(1.4);}
+}
+
+/* Sparkles */
+.sparkle{
+    position:absolute;
+    font-size:14px;
+    color:gold;
+    animation: floatUp linear infinite;
+    opacity:0.8;
+}
+
+/* Stage control */
+.stage{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    transition:opacity 1s ease, transform 1s ease;
+    z-index:2;
+}
+.hidden{
+    opacity:0;
+    pointer-events:none;
+    transform:scale(0.9);
+}
+
+/* Glass card */
+.card{
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(12px);
+    padding:50px 60px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 0 40px rgba(255,215,128,0.25);
+    animation:pop 1s ease;
+    max-width:500px;
+}
+@keyframes pop{
+    from{transform:scale(0.5);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:2.6rem;
+    background: linear-gradient(90deg,#ffd27d,#fff1c1,#ffd27d);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+p{
+    margin-top:12px;
+    font-size:1.1rem;
+    color:#f5f5f5;
+}
+
+.click-note{
+    margin-top:20px;
+    font-size:0.9rem;
+    opacity:0.6;
+    color:#fff;
+}
+
+/* Envelope */
+.envelope{
+    width:280px;
+    height:190px;
+    background: linear-gradient(135deg,#5a001a,#b3003c);
+    border:2px solid gold;
+    border-radius:12px;
+    position:relative;
+    cursor:pointer;
+    box-shadow:0 0 30px rgba(255,215,128,0.4);
+}
+.envelope:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: linear-gradient(135deg,#8b0030,#ff4d88);
+    clip-path: polygon(0 0,100% 0,50% 60%);
+    border-radius:10px 10px 0 0;
+}
+.envelope-text{
+    position:absolute;
+    bottom:18px;
+    width:100%;
+    text-align:center;
+    font-weight:600;
+    color:gold;
+    letter-spacing:1px;
+}
+
+/* Bouquet */
+.bouquet{
+    font-size:90px;
+    cursor:pointer;
+    filter: drop-shadow(0 0 25px gold);
+}
+
+/* Photo reveal */
+.photo{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    border:3px solid gold;
+    object-fit:cover;
+    box-shadow:0 0 30px rgba(255,215,128,0.6);
+    margin-bottom:15px;
+}
+
+/* Firework spark */
+.firework{
+    position:absolute;
+    font-size:22px;
+    animation: explode 1.2s ease-out forwards;
+}
+@keyframes explode{
+    from{transform:scale(0);opacity:1;}
+    to{transform:scale(3);opacity:0;}
+}
+
+@media(max-width:600px){
+    .card{padding:35px;}
+    h1{font-size:2rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- 🎵 Background Music -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_06f7b7f46a.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Stage 1: Envelope -->
+<div class="stage" id="stage1">
+    <div class="envelope" onclick="nextStage(1)">
+        <div class="envelope-text">Open Your Gift 💌</div>
+    </div>
+</div>
+
+<!-- Stage 2: Bouquet -->
+<div class="stage hidden" id="stage2">
+    <div class="bouquet" onclick="nextStage(2)">💐</div>
+    <p class="click-note">A little surprise for you… Tap the bouquet</p>
+</div>
+
+<!-- Stage 3: Intro -->
+<div class="stage hidden" id="stage3">
+    <div class="card" onclick="nextStage(3)">
+        <h1>Hello Beautiful ✨</h1>
+        <p>Something special was made just for you…</p>
+        <p class="click-note">Tap anywhere</p>
+    </div>
+</div>
+
+<!-- Stage 4: Photo Reveal -->
+<div class="stage hidden" id="stage4">
+    <div class="card" onclick="nextStage(4)">
+        <!-- Replace src with her photo -->
+        <img class="photo" src="https://i.imgur.com/8Km9tLL.jpg" alt="Her Photo">
+        <h1>Marion 🌹</h1>
+        <p>Someone truly special ✨</p>
+        <p class="click-note">Tap to continue</p>
+    </div>
+</div>
+
+<!-- Stage 5: Final Message -->
+<div class="stage hidden" id="stage5">
+    <div class="card">
+        <h1>Happy Valentine’s 💖</h1>
+        <p>Roses are red, violets are blue…</p>
+        <p>I’ll skip the cheesy poem 😄</p>
+        <p>Just wanted to wish you a beautiful Valentine’s Day.</p>
+        <p>I really enjoy having you in my life — and I’m thinking of you today ✨</p>
+        <p style="margin-top:15px;">— Leon 💫</p>
+    </div>
+</div>
+
+<script>
+function nextStage(stage){
+    document.getElementById("stage"+stage).classList.add("hidden");
+    document.getElementById("stage"+(stage+1)).classList.remove("hidden");
+
+    // If final stage reached → fireworks
+    if(stage === 4){
+        setInterval(createFirework, 400);
+    }
+}
+
+// Floating hearts
+function createHeart(){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(3+Math.random()*5)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),8000);
+}
+setInterval(createHeart,300);
+
+// Sparkles
+function createSparkle(){
+    const s=document.createElement("div");
+    s.className="sparkle";
+    s.innerHTML="✨";
+    s.style.left=Math.random()*100+"vw";
+    s.style.animationDuration=(4+Math.random()*6)+"s";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),10000);
+}
+setInterval(createSparkle,500);
+
+// Fireworks
+function createFirework(){
+    const f=document.createElement("div");
+    f.className="firework";
+    f.innerHTML="🎆";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*100+"vh";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1200);
+}
+</script>
+
+</body>
+</html>
