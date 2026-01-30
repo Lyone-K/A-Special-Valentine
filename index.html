@@ -179,7 +179,7 @@ p{
 <body>
 
 <!-- 🎵 Background Music -->
-<audio autoplay loop>
+<audio id="bgMusic" loop>
   <source src="assets/music/ordinary.mp3" type="audio/mpeg">
 </audio>
 
@@ -229,11 +229,20 @@ p{
 </div>
 
 <script>
+const music = document.getElementById("bgMusic");
+let musicStarted = false;
+
 function nextStage(stage){
+
+    // Start music on first interaction
+    if(!musicStarted){
+        music.play().catch(()=>{});
+        musicStarted = true;
+    }
+
     document.getElementById("stage"+stage).classList.add("hidden");
     document.getElementById("stage"+(stage+1)).classList.remove("hidden");
 
-    // If final stage reached → fireworks
     if(stage === 4){
         setInterval(createFirework, 400);
     }
@@ -273,10 +282,12 @@ function createFirework(){
     document.body.appendChild(f);
     setTimeout(()=>f.remove(),1200);
 }
+    
 </script>
 
 </body>
 </html>
+
 
 
 
