@@ -543,6 +543,10 @@ window.addEventListener("beforeunload", function () {
     }
 });
 
+    if (typeof gtag !== "undefined") {
+    gtag('event', 'Reached_Final_Message');
+}
+
 const music = document.getElementById("bgMusic");
 let musicStarted = false;
 
@@ -652,6 +656,7 @@ setInterval(createParticle, 1500);
 
 </body>
 </html>
+
 
 
 
