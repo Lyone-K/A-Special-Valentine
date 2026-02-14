@@ -523,6 +523,26 @@ p{
 </div>
 
 <script>
+    // Track when page is opened
+window.addEventListener("load", function () {
+    if (typeof gtag !== "undefined") {
+        gtag('event', 'Valentine_Open');
+    }
+});
+
+    // Track time spent on page
+let startTime = Date.now();
+
+window.addEventListener("beforeunload", function () {
+    let timeSpent = Math.round((Date.now() - startTime) / 1000);
+
+    if (typeof gtag !== "undefined") {
+        gtag('event', 'Time_Spent', {
+            time_in_seconds: timeSpent
+        });
+    }
+});
+
 const music = document.getElementById("bgMusic");
 let musicStarted = false;
 
@@ -632,6 +652,7 @@ setInterval(createParticle, 1500);
 
 </body>
 </html>
+
 
 
 
